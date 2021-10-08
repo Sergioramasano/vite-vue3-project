@@ -1,5 +1,3 @@
-
-
 <template>
   <main class="app">
     <h1 class="title"> hello {{name}}</h1>
@@ -16,26 +14,26 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import YummyMeal from './components/YummyMeal.vue'
   import {ref, reactive, watch, provide} from "vue"
   import SelectCurrency from './components/SelectCurrency.vue'
-    const currencySymbol = ref("$")
+    const currencySymbol = ref<string>("$")
       provide("currencySymbol", currencySymbol)
     
-    const name = ref("The army burger")
-    const meal = reactive({name: "Burger", price: 120})
-    const meals = reactive([
+    const name = ref<string>("The army burger")
+    const meal = reactive<{ name: string, price: number }>({name: "Burger", price: 120})
+    const meals = reactive< { name: string, price: number }[] >([
       {name: "Burger", price: 120},
       {name: "Cheese", price: 140},
       {name: "Lodash", price: 0},
       {name: "Fries", price: 40},
     ])
-    const cart = reactive([])
-    const addItemToCart = (item) => cart.push(item)
+    const cart = reactive<string[]>([])
+    const addItemToCart = (item : string) => cart.push(item)
     watch(
       [()=>[...cart]], 
-      (newValue, oldValue)=>console.log(newValue, oldValue)
+      (newValue, oldValue):void => console.log(newValue, oldValue)
       )
 </script>
 

@@ -16,14 +16,14 @@
     </option>
   </select>
 </template>
-<script setup>
+<script setup lang="ts">
   const props = defineProps({
       currencySymbol: {
         type: String,
         required: true
       }
   })
-  const currencyArray = [
+  const currencyArray : { title: string; value: string }[] = [
       {title: 'Dollar $', value: '$'},
       {title: 'Sobaka @', value: '@'},
       {title: 'Star *', value: '*'},

@@ -2,8 +2,8 @@
   <strong>{{pricePretty}}</strong>
 </template>
 
-<script setup>
-  import {computed, inject} from "vue"
+<script setup lang="ts">
+  import {computed, ComputedRef, inject} from "vue"
   const props = defineProps({
     price: {
         type: Number,
@@ -11,5 +11,5 @@
       }
   })
   const currencySymbol = inject("currencySymbol")
-  const pricePretty = computed(()=>`${currencySymbol.value}${props.price.toFixed(2)}`)
+  const pricePretty : ComputedRef<string> = computed(()=>`${currencySymbol.value}${props.price.toFixed(2)}`)
 </script>
