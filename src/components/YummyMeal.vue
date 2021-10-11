@@ -1,27 +1,28 @@
 <template>
 <div class="item">
-  <p>{{name}}</p>
+  <span v-if="meal.quantity" class="badge badge-danger">
+    {{meal.quantity}}
+  </span>
+  <p>{{meal.name}}</p>
   <p>
-    <yummy-meal-price :price="price" />
+    <yummy-meal-price :price="meal.price" />
   </p>
   <button @click="addToCart" class="btn btn-secondary">Add to cart</button>
 </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import YummyMealPrice from './YummyMealPrice.vue'
 const props = defineProps({
-  name: {
-      type: String,
-      required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
+  meal:{
+    type: Object,
+    required: true
   }
 })
-  const emit = defineEmits(["addToCart"])
- const addToCart = () => emit("addToCart", props.name)
+ const emit = defineEmits(["addToCart"])
+ const addToCart = () => {
+   emit("addToCart", props.meal.id)
+  }
 </script>
 
 <style scoped>
@@ -29,5 +30,11 @@ const props = defineProps({
     background: rgba(235, 214, 95, 0.479);
     border-radius: 3px;
     padding: 2rem;
+    position: relative;
+  }
+  .badge {
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
   }
 </style>
