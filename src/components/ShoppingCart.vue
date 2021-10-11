@@ -17,11 +17,12 @@
         <table v-if="cart.length"  class="table">
           <thead>
             <tr>
-              <th >Name</th>
-              <th >Price</th>
-              <th >Count</th>
-              <th >Summ</th>
-              <th></th>
+              <th 
+                v-for="headTitle of tableHeadings" 
+                :key="headTitle"
+              >
+                {{headTitle}}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -29,7 +30,9 @@
               <th >{{item.name}}</th>
               <td>{{item.price}}</td>
               <th>{{item.quantity}}</th>
-              <th>{{summ(item.price, item.quantity)}}</th>
+              <th>{{summ(item.price, item.quantity)}} 
+                <span v-if="item.quantity">{{currencySymbol}}</span>
+              </th>
               <td>
                 <button 
                   v-if="item.quantity>0" 
@@ -52,12 +55,18 @@
 </div>
 </template>
 <script setup lang="ts">
+import {inject} from "vue"
   const props = defineProps({
       cart: {
         type: Array,
         required: true
       }
   })
+  const tableHeadings = ['Name',
+                        'Price',
+                        'Count',
+                        'Summ', '']
+  const currencySymbol = inject("currencySymbol")
   const summ = (a:number, b:number):number => a*b
   const emit = defineEmits(["toggleCartModal", "removeItemFromCart"])
   const toggleCartModal = () => emit("toggleCartModal")
