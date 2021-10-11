@@ -20,6 +20,7 @@
               <th >Name</th>
               <th >Price</th>
               <th >Count</th>
+              <th >Summ</th>
               <th></th>
             </tr>
           </thead>
@@ -28,6 +29,7 @@
               <th >{{item.name}}</th>
               <td>{{item.price}}</td>
               <th>{{item.quantity}}</th>
+              <th>{{summ(item.price, item.quantity)}}</th>
               <td>
                 <button 
                   v-if="item.quantity>0" 
@@ -56,6 +58,7 @@
         required: true
       }
   })
+  const summ = (a:number, b:number):number => a*b
   const emit = defineEmits(["toggleCartModal", "removeItemFromCart"])
   const toggleCartModal = () => emit("toggleCartModal")
   const removeItemFromCart = (id:number) => emit("removeItemFromCart", id)
